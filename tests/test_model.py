@@ -23,15 +23,15 @@ def approx(a: float, b: float, tol: float = 0.02) -> bool:
 
 
 def test_default_break_even_net():
-    """Net-basis break-even should be ~3.226% for the default scenario."""
+    """Net-basis break-even should be ~3.196% for the default scenario."""
     g = break_even(Params(), "net")
-    assert approx(g, 3.226, 0.01), f"net g* = {g:.4f}, expected ~3.226"
+    assert approx(g, 3.196, 0.01), f"net g* = {g:.4f}, expected ~3.196"
 
 
 def test_default_break_even_gross():
-    """Gross-basis break-even should be ~3.331% for the default scenario."""
+    """Gross-basis break-even should be ~3.290% for the default scenario."""
     g = break_even(Params(), "gross")
-    assert approx(g, 3.331, 0.01), f"gross g* = {g:.4f}, expected ~3.331"
+    assert approx(g, 3.290, 0.01), f"gross g* = {g:.4f}, expected ~3.290"
 
 
 def test_consistency_at_breakeven():

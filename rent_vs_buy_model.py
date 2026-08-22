@@ -38,7 +38,7 @@ class Params:
     """All exogenous inputs of the model. Units: amounts in 万元 (10k CNY),
     rates in percent (e.g. 3.0 means 3%)."""
     price: float = 600.0          # house price P
-    down_pct: float = 33.33       # down payment ratio (%)
+    down_pct: float = 30.0        # down payment ratio (%)
     years: int = 30               # horizon X (loan term / rent duration)
     loan_rate: float = 3.0        # annual mortgage rate (%)
     rent0: float = 10.0           # first-year rent (万元 / year)
