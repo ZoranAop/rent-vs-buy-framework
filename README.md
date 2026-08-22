@@ -1,6 +1,8 @@
 # 租房 vs 买房 · 财务权衡分析框架
 
+[![CI](https://github.com/ZoranAop/rent-vs-buy-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/ZoranAop/rent-vs-buy-framework/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](rent_vs_buy_model.py)
 
 一套**参数化、可复用**的住房决策财务模型。它在统一假设下对比两种终身住房策略，输出终身净财富、盈亏平衡房价涨幅、敏感性、实际购买力与月度现金流压力，帮助你把"买房还是租房"从直觉判断变成可计算的权衡。
 
@@ -8,6 +10,33 @@
 - **策略 B · 租房投资**：租同等品质住房，把首付与每月"月供 − 租金"的盈余用于投资，持有 X 年。
 
 所有现金流按**月度、月度复利**模拟；所有外生变量（房价、利率、租金、通胀、投资回报、税收、持有成本）都是可调参数。
+
+## 框架总览（数据流）
+
+```mermaid
+flowchart TD
+    A["参数 Params<br/>房价 / 首付 / 利率 / 租金 / 通胀<br/>投资回报 / 税费 / 持有成本"]
+    A --> B["逐月模拟<br/>月度复利 · 期数 n = X×12"]
+    B --> C["策略 A · 买房<br/>首付 D + 等额本息月供 M<br/>+ 持有成本 + 房产税 − 卖房成本"]
+    B --> D["策略 B · 租房投资<br/>首付 D 定投 + 月盈余 (M − 租金)<br/>租金按涨幅月化增长"]
+
+    C --> E["买家毛资产 / 净收益"]
+    D --> F["组合终值 / 租房净收益"]
+
+    E --> G{"盈亏平衡 g*<br/>买家终值 = 租房终值"}
+    F --> G
+    G --> H["判定<br/>房价年化涨幅 > g* ⇒ 买房赢<br/>否则租房(定投)赢"]
+
+    E --> I["核心标尺<br/>租金回报率 vs 房贷利率"]
+    F --> J["敏感性<br/>g* 随 投资回报 ↑ 而 ↓<br/>随 租金涨幅 ↑ 而 ↑"]
+
+    E --> K["实际购买力<br/>逐期折现(印钞速度 / 通胀)"]
+    F --> K
+
+    I --> L["红灯: 回报率 < 利率 ⇒ 持有现金流为负"]
+```
+
+> 同一组输入同时驱动"胜负判定"与"盈亏平衡门槛 g\*"，因此两者口径一致、不会自相矛盾。
 
 ---
 
