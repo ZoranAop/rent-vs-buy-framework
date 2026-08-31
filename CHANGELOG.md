@@ -2,6 +2,21 @@
 
 本仓库遵循 [Keep a Changelog](https://keepachangelog.com/) 约定，版本号遵循 [语义化版本 SemVer](https://semver.org/lang/zh-CN/)。
 
+## [Unreleased]
+
+### 新增
+- **模型模块化**：将核心逻辑抽离至 `model.py`，`rent_vs_buy_model.py` 作为 CLI 入口 import 复用，消除 HTML/Python 双份重复
+- **pyproject.toml**：标准化 Python 包管理，支持 `pip install -e ".[dev]"` 安装开发依赖
+- **边界条件测试**：零利率月供、房产税扣减、零投资收益免税、短年限、极小房价、gross 口径 g* 一致性、CLI `--config` JSON 加载（13 项覆盖）
+- **HTML 参数约束**：首付比例 `<input min="0" max="100">`，年限 `<input min="1" max="60">`，防止非法输入导致浏览器异常
+- **CI 升级**：Python 矩阵扩展至 3.9~3.13，改用 `pytest tests/ -v` 标准路径
+
+### 修复
+- `test_zero_loan_rate` 浮点精度容差修正（`interest≈0` 而非严格 `==0`）
+- `test_cli_config_file` Windows 下 CLI 输出编码问题修复（`errors="replace"`）
+
+---
+
 ## [1.0.0] - 2026-08-22
 
 首个正式发行版。基于微信文章《租房30年和贷款30年买房，哪个更划算》提炼的「租房 vs 买房」参数化财务权衡分析框架——把"租房 X 年"与"贷款 X 年买房"两套现金流逐月模拟、月度复利，输出盈亏平衡门槛 `g*`、核心标尺与敏感性分析，辅助决策而不给结论。

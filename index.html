@@ -64,8 +64,8 @@
     <div class="sec-title"><span class="dot"></span>参数输入（默认值见 README，可改为任意场景）</div>
     <div class="inputs">
       <div class="field"><label>房屋总价 P（万元）</label><input id="P" type="number" value="600"><div class="hint">房价基准</div></div>
-      <div class="field"><label>首付比例（%）</label><input id="down" type="number" value="30"><div class="hint">首付占房价</div></div>
-      <div class="field"><label>年限 X（年）</label><input id="X" type="number" value="30"><div class="hint">贷款期 / 租房期</div></div>
+      <div class="field"><label>首付比例（%）</label><input id="down" type="number" value="30" min="0" max="100" step="1"><div class="hint">首付占房价（0-100）</div></div>
+      <div class="field"><label>年限 X（年）</label><input id="X" type="number" value="30" min="1" max="60"><div class="hint">贷款期 / 租房期（1-60）</div></div>
       <div class="field"><label>房贷年利率（%）</label><input id="rLoan" type="number" value="3"><div class="hint">等额本息</div></div>
       <div class="field"><label>首年月租金（万元/年）</label><input id="rent0" type="number" value="10"><div class="hint">年租金</div></div>
       <div class="field"><label>租金年涨幅（%）</label><input id="rentG" type="number" value="0"><div class="hint">随物价/供需</div></div>
@@ -175,6 +175,7 @@ function getP(){
   if(p.down<0||p.down>100){p.down=Math.min(100,Math.max(0,p.down));w.push('首付比例已限制在 0–100%');}
   if(p.X<=0||p.X>60){p.X=Math.min(60,Math.max(1,p.X));w.push('贷款年限已限制在 1–60 年');}
   if(p.P<=0)w.push('房屋总价需为正');
+  if(p.X>60){p.X=60;w.push('年限上限 60 年');}
   $('warn').textContent = w.join('；');
   return p;
 }

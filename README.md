@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ZoranAop/rent-vs-buy-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/ZoranAop/rent-vs-buy-framework/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](rent_vs_buy_model.py)
+[![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](rent_vs_buy_model.py)
 
 一套**参数化、可复用**的住房决策财务模型。它在统一假设下对比两种终身住房策略，输出终身净财富、盈亏平衡房价涨幅、敏感性、实际购买力与月度现金流压力，帮助你把"买房还是租房"从直觉判断变成可计算的权衡。
 
@@ -173,6 +173,18 @@ flowchart TD
 ---
 
 ## 6. 使用方法
+
+### 6.0 安装（可选）
+
+```bash
+# 安装为可编辑包（推荐，方便本地修改后直接测试）
+pip install -e .
+
+# 安装开发依赖（运行测试）
+pip install -e ".[dev]"
+```
+
+> 无需安装也可直接运行：`python rent_vs_buy_model.py`（纯标准库，无第三方依赖）。
 
 ### 6.1 交互式（零安装）
 直接用浏览器打开 [`index.html`](index.html)，改参数即可实时看结果。无需任何依赖。
